@@ -1,0 +1,110 @@
+[gd_scene load_steps=9 format=3 uid="uid://btxm2500iknrl"]
+
+[ext_resource type="Script" path="res://Scenes/Game/Game.cs" id="1_6hnwd"]
+[ext_resource type="Texture2D" uid="uid://f7ipkyrwmy3p" path="res://assets/GameBg.png" id="2_8t0j1"]
+[ext_resource type="PackedScene" uid="uid://ckj1w6yck0fxn" path="res://Scenes/Paddle/Paddle.tscn" id="3_4mven"]
+[ext_resource type="PackedScene" uid="uid://c5646eu6pjjlu" path="res://Scenes/Gem/Gem.tscn" id="4_x8hjk"]
+[ext_resource type="AudioStream" uid="uid://dn3pt321xkwtw" path="res://assets/bgm_action_5.mp3" id="5_o8bxo"]
+[ext_resource type="AudioStream" uid="uid://c0gh74siuxxwr" path="res://assets/spell1_0.wav" id="6_m4jf3"]
+[ext_resource type="FontFile" uid="uid://buw1jisi3xtik" path="res://assets/Game-Font.ttf" id="7_a1qke"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rd263"]
+bg_color = Color(0.647059, 0.164706, 0.164706, 1)
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("_spawnTimer", "_scoreLabel", "_music", "_effects")]
+script = ExtResource("1_6hnwd")
+_gemScene = ExtResource("4_x8hjk")
+_spawnTimer = NodePath("Timer")
+_scoreLabel = NodePath("ScoreLabel")
+_music = NodePath("Music")
+_effects = NodePath("Effects")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(587, 340)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_8t0j1")
+
+[node name="Paddle" parent="." instance=ExtResource("3_4mven")]
+position = Vector2(562, 552)
+_speed = 400.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 64.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(0.677012, 0.493015, 0.951487, 1)
+theme_override_colors/font_shadow_color = Color(0.929715, 0.929715, 0.929715, 1)
+theme_override_colors/font_outline_color = Color(0.264389, 0.264389, 0.264389, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 2
+theme_override_font_sizes/font_size = 48
+text = "0000"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_o8bxo")
+volume_db = -16.0
+autoplay = true
+
+[node name="Effects" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_m4jf3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1153.0
+offset_bottom = 647.0
+
+[node name="GameOver" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -206.5
+offset_top = -103.5
+offset_right = 206.5
+offset_bottom = -8.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.647059, 0.164706, 0.164706, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("7_a1qke")
+theme_override_font_sizes/font_size = 150
+text = "GAME OVER"
+
+[node name="Menu" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 422.0
+offset_top = 369.0
+offset_right = 698.0
+offset_bottom = 460.0
+theme_override_fonts/font = ExtResource("7_a1qke")
+theme_override_font_sizes/font_size = 90
+theme_override_styles/focus = SubResource("StyleBoxFlat_rd263")
+text = "Main Menu"
+
+[node name="FinalScoreLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 422.0
+offset_top = 321.0
+offset_right = 462.0
+offset_bottom = 344.0
+theme_override_colors/font_shadow_color = Color(0.647059, 0.164706, 0.164706, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("7_a1qke")
+theme_override_font_sizes/font_size = 55
+text = "Final Score: "
+
+[connection signal="pressed" from="CanvasLayer/Control/Menu" to="." method="_on_menu_pressed"]

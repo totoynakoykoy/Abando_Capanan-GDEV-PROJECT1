@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmjwsecalqy76"]
+
+[ext_resource type="Script" path="res://Scenes/Leaderboards/Leaderboard.cs" id="1_lgr4h"]
+[ext_resource type="Texture2D" uid="uid://f7ipkyrwmy3p" path="res://assets/GameBg.png" id="2_rowd2"]
+[ext_resource type="FontFile" uid="uid://buw1jisi3xtik" path="res://assets/Game-Font.ttf" id="3_udt1a"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_do018"]
+texture = ExtResource("2_rowd2")
+modulate_color = Color(0.454524, 0.454524, 0.454524, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lgr4h")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 645.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_do018")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -267.0
+offset_top = -272.5
+offset_right = 267.0
+offset_bottom = -143.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_udt1a")
+theme_override_font_sizes/font_size = 150
+text = "LEADERBOARDS"
+
+[node name="ScoreContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "BACK"
+
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
